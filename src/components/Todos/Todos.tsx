@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, type KeyboardEvent } from "react";
 import { connect } from "react-redux";
-import { v4 as uuidv4 } from 'uuid';
-import { addTodos, removeTodos } from "../../redux/reducer";
+import { v4 as uuidv4 } from "uuid";
+import { addTodos, removeTodos, updateTodos } from "../../redux/reducer";
+import TodoItem from "./TodoItem";
 
 const mapStateToProps = (state: any) => {
   return {
@@ -12,7 +13,6 @@ const mapStateToProps = (state: any) => {
 const mapDispatchToProps = (dispatch: any) => {
   return {
     addTodo: (obj: any) => dispatch(addTodos(obj)),
-    removeTodo: (id: string) => dispatch(removeTodos(id))
   };
 };
 
@@ -44,16 +44,13 @@ const Todos = (props: any) => {
       >
         Add
       </button>
-      <br/>
+      <br />
 
       <ul>
-        {props.todos.map((item:any) => {
-          return <li key={item.id}>{item.item}
-            <button
-              className="remove-btn"
-              onClick={() => props.removeTodo(item.id)}
-            >Remove</button>
-          </li>
+        {props.todos.map((item: any) => {
+          return (
+            <TodoItem item={item} />
+          );
         })}
       </ul>
     </div>
