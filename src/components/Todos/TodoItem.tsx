@@ -1,8 +1,8 @@
 import { useRef, type KeyboardEvent } from "react";
 import { connect } from "react-redux";
-import { removeTodos, updateTodos } from "../../redux/reducer";
+import { removeTodos, updateTodos, type Todo } from "../../redux/reducer";
 type Props = {
-  item: any;
+  item: Todo;
   updateTodo: Function;
   removeTodo: Function;
 };

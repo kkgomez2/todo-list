@@ -1,7 +1,7 @@
-import { useState, type KeyboardEvent } from "react";
+import { useState } from "react";
 import { connect } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
-import { addTodos, removeTodos, updateTodos } from "../../redux/reducer";
+import { addTodos, type Todo } from "../../redux/reducer";
 import TodoItem from "./TodoItem";
 
 const mapStateToProps = (state: any) => {
@@ -12,7 +12,7 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    addTodo: (obj: any) => dispatch(addTodos(obj)),
+    addTodo: (obj: Todo) => dispatch(addTodos(obj)),
   };
 };
 
