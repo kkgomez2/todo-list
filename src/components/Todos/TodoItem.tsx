@@ -1,10 +1,11 @@
 import { useRef, type KeyboardEvent } from "react";
 import { connect } from "react-redux";
-import { removeTodos, updateTodos, type Todo } from "../../redux/reducer";
+import { removeTodos, updateTodos, completeTodos, type Todo } from "../../redux/reducer";
 type Props = {
   item: Todo;
   updateTodo: Function;
   removeTodo: Function;
+  completeTodo: Function;
 };
 
 const mapStateToProps = (state: any) => {
@@ -16,11 +17,12 @@ const mapStateToProps = (state: any) => {
 const mapDispatchToProps = (dispatch: any) => {
   return {
     removeTodo: (id: string) => dispatch(removeTodos(id)),
-    updateTodo: (obj: any) => dispatch(updateTodos(obj)),
+    updateTodo: (obj: Todo) => dispatch(updateTodos(obj)),
+    completeTodo: (id: string) => dispatch(completeTodos(id)),
   };
 };
 
-const TodoItem = ({ item, updateTodo, removeTodo }: Props) => {
+const TodoItem = ({ item, updateTodo, removeTodo, completeTodo }: Props) => {
   const itemRef = useRef<HTMLTextAreaElement>(null);
 
   const changeFocus = () => {
@@ -50,6 +52,8 @@ const TodoItem = ({ item, updateTodo, removeTodo }: Props) => {
         }
       ></textarea>
       <button onClick={() => changeFocus()}>Edit</button>
+      <button onClick={() => completeTodo(item.id)}>Complete</button>
+      {item.completed && <div>✅</div>}
       <button
         className="remove-btn"
         onClick={() => removeTodo(item.id)}
